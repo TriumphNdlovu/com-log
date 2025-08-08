@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 rounded-2xl
       ${scrolled 
-        ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg border-b border-white/10' 
+        ? 'bg-transparent-bg-slate-900/95 backdrop-blur-lg shadow-lg border-b border-white/10' 
         : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex justify-between items-center h-16">

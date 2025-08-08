@@ -7,6 +7,7 @@ export interface PostMeta {
   title: string
   date: string
   description?: string
+  author?: string
   slug: string
 }
 
@@ -37,6 +38,15 @@ const PostList: React.FC = () => {
                     {formatDate(post.date)}
                   </time>
                 </div>
+                {/* author */}
+                {post.author && (
+                  <div className="text-sm text-[#6b5644]">
+                    <span>By {post.author}</span>
+                  </div>
+                )}
+              </div>
+              <div className="mt-4">
+                {/* Post title and description */}
 
                 <h2 className="text-2xl font-bold text-[#5e4431] group-hover:text-[#8b6b4a] transition-colors duration-300">
                   {post.title}
