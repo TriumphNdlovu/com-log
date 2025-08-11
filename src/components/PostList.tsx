@@ -37,13 +37,11 @@ const PostList: React.FC = () => {
                   <time dateTime={post.date}>
                     {formatDate(post.date)}
                   </time>
-                </div>
-                {/* author */}
-                {post.author && (
                   <div className="text-sm text-[#6b5644]">
-                    <span>By {post.author}</span>
+                    
+                    <span>{post.author}</span>
                   </div>
-                )}
+                </div>
               </div>
               <div className="mt-4">
                 {/* Post title and description */}

@@ -33,14 +33,13 @@ export default function About() {
 
             {/* Name */}
             <h1 className="text-3xl font-bold mb-2">Hi, I’m Triumph 👋</h1>
-            <p className="text-gray-500 mb-6 text-sm">Developer • Tech Enthusiast • Coffee Lover</p>
+            <p className="text-gray-500 mb-6 text-sm">Software Engineer • Tech Enthusiast • Coffee Lover</p>
 
             {/* Bio */}
-            <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Welcome to my personal corner of the internet! I love building
-              projects that mix creativity with clean code — from Vue & Tailwind
-              tips to full-stack experiments. When I’m not coding, you’ll find
-              me exploring new tech trends or perfecting my coffee brewing game.
+            <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto font-mono ">
+                Welcome to my own corner of the internet! When I'm not coding, 
+                you'll probably find me exploring the latest tech trends or diving deep into research on the most random topics.
+                I believe in the power of technology to transform lives ,and I love sharing the stories behind how it all works. 
             </p>
 
             {/* Social Links */}
@@ -48,17 +47,17 @@ export default function About() {
               {[
                 {
                   icon: <FaGithub />,
-                  url: "https://github.com/yourusername",
+                  url: "https://github.com/TriumphNdlovu",
                   color: "hover:bg-gray-800",
                 },
                 {
                   icon: <FaLinkedin />,
-                  url: "https://linkedin.com/in/yourusername",
+                  url: "https://www.linkedin.com/in/triumph-ndlovu-425b73274/",
                   color: "hover:bg-blue-700",
                 },
                 {
                   icon: <FaEnvelope />,
-                  url: "mailto:youremail@example.com",
+                  url: "mailto:realtriumphndlovu@gmail.com",
                   color: "hover:bg-red-500",
                 },
                 {

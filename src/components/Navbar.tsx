@@ -29,9 +29,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
-            className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 hover:from-blue-500 hover:to-purple-600 transition-all"
+            className="text-xl font-bold bg-clip-text hover:from-blue-500 hover:to-purple-600 transition-all"
           >
-            Com/Log
+            ~Commit log~
           </Link>
 
           {/* Desktop Menu */}
@@ -72,9 +72,8 @@ export default function Navbar() {
         ${menuOpen ? 'max-h-56' : 'max-h-0'}`}>
         <div className="bg-slate-900/95 backdrop-blur-lg border-t border-white/10 px-4 py-2">
           {[
-            { path: '/', label: 'Home' },
-            { path: '/about', label: 'About' },
-            { path: '/contact', label: 'Contact' }
+            // { path: '/', label: 'Home' },
+            { path: '/about', label: 'me' },
           ].map(({ path, label }) => (
             <Link
               key={path}

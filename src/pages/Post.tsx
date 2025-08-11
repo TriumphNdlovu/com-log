@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Calendar, Clock } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, User } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import frontMatter from 'front-matter'
 
@@ -8,6 +8,7 @@ interface PostMeta {
   title: string
   date: string
   description?: string
+  author?: string
 }
 
 export default function Post() {
@@ -120,6 +121,11 @@ export default function Post() {
               <Calendar className="w-4 h-4" />
               <time dateTime={meta.date}>{formatDate(meta.date)}</time>
             </div>
+            <div className='flex items-center gap-2'>
+              <User className="w-4 h-4" />
+              <span>{meta.author}</span>
+            </div>
+            
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
               <span>{estimateReadTime(content)} min read</span>

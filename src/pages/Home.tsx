@@ -24,9 +24,9 @@ export default function Home() {
         {/* Main content */}
         <div className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-                <main className="sm:p-5  text-black">
-                    <PostList />
-                </main>
+              <main className="sm:p-5  rounded-xl ">
+                <PostList />
+              </main>
             </div>
         </div>
 

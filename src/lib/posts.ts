@@ -7,12 +7,14 @@ export interface PostMeta {
   date: string
   description?: string
   slug: string
+  author?: string
 }
 
 interface PostAttributes {
   title?: string
   date?: string
   description?: string
+  author?: string
 }
 
 export const posts: PostMeta[] = Object.entries(postFiles).map(([path, content]) => {
@@ -24,5 +26,6 @@ export const posts: PostMeta[] = Object.entries(postFiles).map(([path, content])
     title: attributes.title ?? 'No title',
     date: attributes.date ?? '',
     description: attributes.description ?? '',
+    author: attributes.author ?? 'Unknown Author'
   }
 }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
