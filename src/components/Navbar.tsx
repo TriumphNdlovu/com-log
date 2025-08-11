@@ -29,7 +29,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
-            className="text-xl font-bold textover hover:to-purple-600 transition-all"
+            className="text-2xl font-bold textover hover:to-purple-600 transition-all"
           >
             ~Commit log~
           </Link>
