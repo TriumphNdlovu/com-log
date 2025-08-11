@@ -37,9 +37,8 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {[
-              { path: '/', label: 'Home' },
-              { path: '/about', label: 'About' },
-              { path: '/contact', label: 'Contact' }
+             //  { path: '/', label: 'home' },
+              { path: '/about', label: 'me' },
             ].map(({ path, label }) => (
               <Link
                 key={path}

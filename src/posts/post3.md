@@ -5,4 +5,4 @@ author: Triumph Ndlovu
 description: "An exploration of the critical role that testing plays in the software development lifecycle, including best practices and methodologies."
 ---
 
-![Testing](../../public/golanf.png)
+![Testing](../../golanf.png)
