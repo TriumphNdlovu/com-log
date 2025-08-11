@@ -29,13 +29,14 @@ export default function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
-            className="text-xl font-bold bg-clip-text hover:from-blue-500 hover:to-purple-600 transition-all"
+            className="text-xl font-bold textover hover:to-purple-600 transition-all"
           >
             ~Commit log~
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex text-xl font-bold items-center space-x-8">
+             
             {[
              //  { path: '/', label: 'home' },
               { path: '/about', label: 'me' },
@@ -43,10 +44,10 @@ export default function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className={`relative px-1 py-2 text-sm font-medium transition-colors
+                className={`relative px-1 py-2 font-bold transition-colors
                   ${isActivePath(path) 
-                    ? 'text-blue-400' 
-                    : 'text-gray-400 hover:text-white'}
+                    ? 'text-brown-400' 
+                    : 'text-brown-400 hover:text-white'}
                   group`}
               >
                 {label}

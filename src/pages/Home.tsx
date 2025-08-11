@@ -23,7 +23,9 @@ export default function Home() {
 
         {/* Main content */}
         <div className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+
             <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-semibold text-[#5e4431] mb-8">Latest Posts</h2>
               <main className="sm:p-5  rounded-xl ">
                 <PostList />
               </main>

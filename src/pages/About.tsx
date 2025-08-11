@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { FaGithub, FaLinkedin, FaEnvelope, FaGlobe } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaGlobe, FaWhatsapp } from "react-icons/fa";
 
 export default function About() {
   return (
@@ -65,6 +65,11 @@ export default function About() {
                   url: "https://triumph-portfolio-seven.vercel.app",
                   color: "hover:bg-green-600",
                 },
+                {
+                  icon: <FaWhatsapp />,
+                  url: "https://wa.me/+27827793863",
+                  color: "hover:bg-green-600",
+                }
               ].map((item, idx) => (
                 <a
                   key={idx}
