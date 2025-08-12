@@ -21,45 +21,42 @@ function formatDate(dateStr: string) {
 
 const PostList: React.FC = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {posts.map((post: PostMeta) => (
         <article 
           key={post.slug} 
-          className="group relative overflow-hidden rounded-xl border border-[#d2c2b0] bg-gradient-to-br from-white/50 to-[#f7f3eb]/50 backdrop-blur-sm"
+          className="group relative overflow-hidden rounded-2xl border border-[#d2c2b0]/50 bg-white/80 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-[#8b6b4a]/0 to-[#8b6b4a]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#8b6b4a]/5 to-[#8b6b4a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
-          <Link to={`/post/${post.slug}`}>
-            <div className="relative p-6 sm:p-8">
+          <Link to={`/post/${post.slug}`} className="block">
+            <div className="relative p-6 sm:p-8 lg:p-10">
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-sm text-[#8b6b4a]">
-                  <Calendar className="w-4 h-4" />
-                  <time dateTime={post.date}>
+                <div className="flex items-center gap-3 text-sm text-[#8b6b4a]">
+                  <Calendar className="w-5 h-5" />
+                  <time dateTime={post.date} className="font-medium">
                     {formatDate(post.date)}
                   </time>
-                  <div className="text-sm text-[#6b5644]">
-                    
-                    <span>{post.author}</span>
-                  </div>
+                  {post.author && (
+                    <div className="text-sm text-[#6b5644] font-medium">
+                      <span>by {post.author}</span>
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="mt-4">
-                {/* Post title and description */}
-
-                <h2 className="text-2xl font-bold text-[#5e4431] group-hover:text-[#8b6b4a] transition-colors duration-300">
+              <div className="mt-5">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#5e4431] group-hover:text-[#8b6b4a] transition-colors duration-300 tracking-tight">
                   {post.title}
                 </h2>
-
                 {post.description && (
-                  <p className="text-[#6b5644] line-clamp-2">
+                  <p className="mt-3 text-[#6b5644] text-base md:text-lg line-clamp-3 leading-relaxed">
                     {post.description}
                   </p>
                 )}
-
-                <div className="flex items-center gap-2 text-[#8b6b4a] font-medium pt-2">
-                  <span className="text-sm">Read post</span>
+                <div className="mt-4 flex items-center gap-2 text-[#8b6b4a] font-semibold">
+                  <span className="text-sm md:text-base">Read post</span>
                   <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

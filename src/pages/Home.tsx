@@ -1,6 +1,7 @@
 import PostList from '../components/PostList'
 import Navbar from '../components/Navbar'
 
+// will use AI to generate a random quote
 export default function Home() {
     const quotes = [
       "Code is like humor. When you have to explain it, it’s bad.",
@@ -22,47 +23,44 @@ export default function Home() {
       "Debugging is like being the detective in a crime movie where you are also the murderer.",
       "Programming is the art of telling another human what one wants the computer to do.",
       "A language that doesn't affect the way you think about programming is not worth knowing.",
-      "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away."
-  ]
+      "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away"
+    ]
 
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-  return (
-    <>
-      {/* Background */}
-      <div className="min-h-screen bg-gradient-to-br from-[#f7f3eb] to-[#eae1d5] text-[#3a2f2f] relative">
-        {/* Subtle paper-like background pattern */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `radial-gradient(circle at 25% 25%, rgba(90, 60, 30, 0.12) 1px, transparent 1px)`,
-              backgroundSize: '50px 50px',
-            }}
-          />
-        </div>
+    return (
+      <>
+        {/* Background */}
+        <div className="min-h-screen bg-gradient-to-br from-[#fdfaf5] to-[#e8e0d3] text-[#3a2f2f] relative font-sans">
+          {/* Subtle paper-like background pattern */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div
+              className="w-full h-full"
+              style={{
+                backgroundImage: `radial-gradient(circle at 20% 20%, rgba(90, 60, 30, 0.15) 1px, transparent 1px)`,
+                backgroundSize: '40px 40px',
+              }}
+            />
+          </div>
 
-        {/* Navbar */}
-        <Navbar />
+          {/* Navbar */}
+          <Navbar />
 
-        {/* Main content */}
-        <div className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-                 
-
-
-
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-semibold text-[#5e4431] mb-8">Latest Posts</h2>
-              <div className="max-w-4xl mx-auto px-4 sm:px-3 lg:px-4 mb-5 text-center italic text-[#8b6b4a] border-l-4 border-[#d2c2b0] pl-4">
+          {/* Main content */}
+          <div className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#5e4431] mb-10 tracking-tight">
+                Latest Posts
+              </h2>
+              <div className="max-w-3xl mx-auto px-6 py-4 mb-12 text-center italic text-[#8b6b4a] bg-white/80 backdrop-blur-sm rounded-lg shadow-md border border-[#d2c2b0] transform transition-transform hover:scale-[1.02]">
                 “{randomQuote}”
               </div>
-              <main className="sm:p-5  rounded-xl ">
+              <main className="sm:p-6 rounded-xl"> 
                 <PostList />
               </main>
             </div>
+          </div>
         </div>
-
-      </div>
-    </>
-  )
+      </>
+    )
 }
