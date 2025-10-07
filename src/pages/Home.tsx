@@ -1,86 +1,119 @@
 import { useState, useEffect, useRef } from "react";
 import { posts } from "../lib/posts";
-import { useNavigate } from "react-router-dom";
+import About from "../pages/About";
+import PostList from "../components/PostList";
+import Post from "../pages/Post";
+import Animal from "./Animal";
 
 interface CommandOutput {
-  text: string;
+  content: string | React.ReactNode;
   isError?: boolean;
 }
 
 export default function Terminal() {
   const [history, setHistory] = useState<CommandOutput[]>([]);
   const [input, setInput] = useState("");
+  const [path, setPath] = useState("~");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number | null>(null);
+
   const inputRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  const commands = ["help", "posts", "open", "about", "clear", "cd"];
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
 
   const handleCommand = (cmd: string) => {
     const args = cmd.trim().split(" ");
     const main = args[0].toLowerCase();
     let newOutput: CommandOutput[] = [];
 
+    // Save to command history
+    setCommandHistory((prev) => [...prev, cmd]);
+    setHistoryIndex(null);
+
     switch (main) {
       case "help":
         newOutput.push({
-          text: `Available commands:
-                - help: Show this message
-                - posts: List all posts
-                - open <slug>: Open a post
-                - about: Show about info
-                - contact: Show social links
-                - clear: Clear terminal`,
+          content: (
+            <pre className="text-[#00ff90] whitespace-pre-wrap">
+{`Available commands:
+- help: Show this message
+- posts: List all posts
+- about: Show about info
+- cd <dir>: Change directory (for fun)
+- clear: Clear terminal`}
+            </pre>
+          ),
         });
         break;
+
       case "posts":
-        posts.forEach((p) =>
-          newOutput.push({
-            text: `${p.slug}: ${p.title} (${p.date})`,
-          })
-        );
+        newOutput.push({
+          content: (
+            <PostList
+              onOpenPost={(slug) =>
+                setHistory((prev) => [
+                  ...prev,
+                  { content: `> open ${slug}` },
+                  { content: <Post slug={slug} /> },
+                ])
+              }
+            />
+          ),
+        });
         break;
+
       case "open":
         if (args[1]) {
           const slug = args[1];
           const exists = posts.find((p) => p.slug === slug);
-          if (exists) {
-            navigate(`/post/${slug}`);
-            return;
-          } else {
-            newOutput.push({ text: `Post '${slug}' not found.`, isError: true });
-          }
+          if (exists) newOutput.push({ content: <Post slug={slug} /> });
+          else
+            newOutput.push({
+              content: `Post '${slug}' not found.`,
+              isError: true,
+            });
         } else {
-          newOutput.push({ text: "Usage: open <slug>", isError: true });
+          newOutput.push({ content: "Usage: open <slug>", isError: true });
         }
         break;
+
       case "about":
-        newOutput.push({
-          text: `Triumph Ndlovu - Software Engineer
-                Tech Enthusiast • Coffee Lover
-                Type 'contact' to see links.`,
-        });
+        newOutput.push({ content: <About /> });
         break;
-      case "contact":
-        newOutput.push({
-          text: `GitHub: https://github.com/TriumphNdlovu
-                LinkedIn: https://www.linkedin.com/in/triumph-ndlovu-425b73274/
-                Email: realtriumphndlovu@gmail.com
-                Portfolio: https://triumph-portfolio-seven.vercel.app`,
-        });
+
+      case "cd":
+        if (args[1]) {
+          setPath(args[1]);
+          newOutput.push({ content: `Changed directory to ${args[1]}` });
+        } else {
+          setPath("~");
+          newOutput.push({ content: "Returned to home directory" });
+        }
         break;
+
       case "clear":
+      case "cls":
         setHistory([]);
         return;
+
       default:
-        newOutput.push({ text: `'${cmd}' is not recognized. Type 'help'`, isError: true });
+        newOutput.push({
+          content: `'${cmd}' is not recognized. Type 'help' for available commands.`,
+          isError: true,
+        });
         break;
     }
 
-    setHistory((prev) => [...prev, { text: `> ${cmd}` }, ...newOutput]);
+    setHistory((prev) => [...prev, { content: `> ${cmd}` }, ...newOutput]);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -90,27 +123,49 @@ export default function Terminal() {
     setInput("");
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const suggestion = commands.find((cmd) => cmd.startsWith(input));
+      if (suggestion) setInput(suggestion);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+
+      const newIndex =
+        historyIndex === null ? commandHistory.length - 1 : historyIndex - 1;
+      if (newIndex >= 0) {
+        setInput(commandHistory[newIndex]);
+        setHistoryIndex(newIndex);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (commandHistory.length === 0 || historyIndex === null) return;
+
+      const newIndex = historyIndex + 1;
+      if (newIndex < commandHistory.length) {
+        setInput(commandHistory[newIndex]);
+        setHistoryIndex(newIndex);
+      } else {
+        setInput("");
+        setHistoryIndex(null);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0d0d0d] font-mono p-4">
-
-      <div className="absolute top-6 text-center w-full px-4">
-        <div className="text-[#00ff90] mb-6 text-center select-none">
-          <h1 className="text-3xl font-bold">'Come blog with me'</h1>
-          <p className="text-sm">Type 'help' to get started</p>
-          <div className="text-xs text-gray-500 mt-2">v24.9 - © 2025 Triumph Ndlovu
-          </div>
-        </div>
+      <div className="absolute top-6 text-center w-full px-4 select-none">
+        <h1 className="text-3xl font-bold text-[#00ff90] mb-2">'Come blog with me'</h1>
+        <p className="text-sm text-[#00ff90]">Type 'help' to get started</p>
+        <div className="text-xs text-gray-500 mt-1">v24.9 - © 2025 Triumph Ndlovu</div>
+        <Animal />
       </div>
+
+      
+
       {/* Terminal Window */}
-      <div
-          className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(0deg, #00ff8055 1px, transparent 1px),
-              linear-gradient(90deg, #00ff8055 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      <div className="w-full max-w-4xl opacity-80 rounded-lg shadow-2xl overflow-hidden border border-[#222]">
+      <div className="relative w-full max-w-4xl max-h-[80vh] rounded-xl shadow-[0_15px_40px_rgba(0,255,128,0.2)] overflow-hidden border border-[#222] opacity-95">
         {/* Title Bar */}
         <div className="flex items-center px-4 py-2 bg-[#2a2a2a] border-b border-[#333]">
           <span className="w-3 h-3 bg-[#ff5f56] rounded-full mr-2"></span>
@@ -120,25 +175,33 @@ export default function Terminal() {
         </div>
 
         {/* Terminal Content */}
-        <div className="px-6 py-6 bg-[#0d0d0d] min-h-[60vh] max-h-[80vh] overflow-y-auto">
+        <div className="px-6 py-6 bg-[#0d0d0d] min-h-[60vh] max-h-[60vh] overflow-y-auto">
           {history.map((h, i) => (
             <div key={i} className={h.isError ? "text-[#ff5f56]" : ""}>
-              {h.text}
+              {h.content}
             </div>
           ))}
+          <div ref={terminalEndRef}></div>
 
-          <form onSubmit={handleSubmit} className="flex mt-2">
-            <span className="mr-2 text-[#00ff90] select-none">triumph@blog:~$</span>
+          {/* Input */}
+          <form onSubmit={handleSubmit} className="flex mt-2 items-center">
+            <span className="mr-2 text-[#00ff90] select-none">
+              triumph@blog:{path}$
+            </span>
             <input
-              type="text"
               ref={inputRef}
+              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               className="bg-transparent border-none outline-none text-[#00ff90] flex-1"
               autoFocus
             />
           </form>
-        </div>
+      
+      </div>
+
+
       </div>
     </div>
   );

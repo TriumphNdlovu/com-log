@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import frontMatter from 'front-matter'
@@ -11,8 +11,11 @@ interface PostMeta {
   author?: string
 }
 
-export default function Post() {
-  const { slug } = useParams<{ slug: string }>()
+interface PostProps {
+  slug: string
+}
+
+export default function Post({ slug }: PostProps) {
   const [meta, setMeta] = useState<PostMeta | null>(null)
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(true)
@@ -33,7 +36,6 @@ export default function Post() {
           description: attrs.description,
           author: attrs.author,
         })
-        
         setContent(body)
       } catch (error) {
         console.error('Failed to load post:', error)
@@ -49,9 +51,8 @@ export default function Post() {
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString('en-UK', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
-      weekday: 'long',
     })
 
   const estimateReadTime = (text: string) => {
@@ -60,114 +61,74 @@ export default function Post() {
     return Math.ceil(wordCount / wordsPerMinute)
   }
 
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="min-h-screen bg-[#0d0d0d] text-[#00ff90] flex items-center justify-center font-mono">
-        <div className="flex gap-2">
-          <span className="animate-pulse">Loading</span>
-          <span className="animate-pulse delay-150">.</span>
-          <span className="animate-pulse delay-300">.</span>
-          <span className="animate-pulse delay-500">.</span>
-        </div>
+      <div className="min-h-screen bg-[#050505] text-[#00FF80] flex items-center justify-center font-mono text-lg">
+        <p>
+          triumph@tlt-media:~$ <span className="animate-pulse">loading_post.sh ...</span>
+        </p>
       </div>
     )
-  }
 
-  if (!meta) {
+  if (!meta)
     return (
-      <div className="min-h-screen bg-[#0d0d0d] text-[#ff5f56] flex items-center justify-center font-mono">
-        <div>Post not found.</div>
+      <div className="min-h-screen bg-[#050505] text-[#FF5F56] flex items-center justify-center font-mono">
+        <p>error: post not found</p>
       </div>
     )
-  }
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-[#00ff90] font-mono flex flex-col">
-      {/* Terminal window container */}
-      <div className="max-w-5xl mx-auto mt-24 mb-12 w-full rounded-lg border border-[#222] shadow-lg bg-[#1a1a1a] overflow-hidden">
+    <div className="min-h-screen  text-[#00FF80] font-mono flex flex-col items-center px-4 py-12 relative">
+      {/* Scanline overlay */}
+
+      
+      {/* Post Body */}
+      <article className="border border-[#00FF80]/20 bg-[#0b0b0b]/50 rounded-md p-6 leading-relaxed text-[#9affc2] shadow-[0_0_8px_#00FF80]/10">
         
-        {/* Terminal header */}
-        <div className="flex items-center justify-start space-x-2 px-4 py-2 bg-[#2a2a2a] border-b border-[#333]">
-          <span className="w-3 h-3 bg-[#ff5f56] rounded-full"></span>
-          <span className="w-3 h-3 bg-[#ffbd2e] rounded-full"></span>
-          <span className="w-3 h-3 bg-[#27c93f] rounded-full"></span>
-          <span className="ml-3 text-sm text-[#ccc]">
-            ~/Documents/Blog/{slug}.md
-          </span>
-        </div>
-
-        {/* Terminal content */}
-        <div className="px-6 py-8">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-[#00ff90] hover:text-[#fff] mb-6 transition-colors duration-300"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>cd ..</span>
-          </Link>
-
-          <p className="mb-2">
-            triumph@tlt-media:~$ <span className="text-[#00ff90]">cat {slug}.md</span>
-          </p>
-
-          <div className="border border-[#333] rounded-lg bg-[#0a0a0a] p-6 mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-4 text-[#00ff90]">{meta.title}</h1>
+            <h1 className="text-3xl font-bold mb-2 text-[#00FF80]">{meta.title}</h1>
             {meta.description && (
-              <p className="text-[#80ffaa] mb-4 italic">{meta.description}</p>
+              <p className="text-[#9affc2]/80 italic mb-2">{meta.description}</p>
             )}
-            <div className="text-sm text-[#55dd99] mb-4">
+            <div className="text-xs text-[#55dd99] tracking-wide">
               {formatDate(meta.date)} — {meta.author || 'Anonymous'} — {estimateReadTime(content)} min read
             </div>
-          </div>
+          
 
-          <article className="border border-[#333] bg-[#0a0a0a] rounded-lg p-6 leading-relaxed text-[#00ff90]">
+          
             <ReactMarkdown
               components={{
-                h1: ({ ...props }) => <h1 className="text-3xl font-bold text-[#00ff90] mt-8 mb-4" {...props} />,
-                h2: ({ ...props }) => <h2 className="text-2xl font-semibold text-[#00ff90] mt-6 mb-3" {...props} />,
-                h3: ({ ...props }) => <h3 className="text-xl font-medium text-[#00ff90] mt-4 mb-2" {...props} />,
-                p: ({ ...props }) => <p className="mb-4 text-[#00ff90]" {...props} />,
+                h1: ({ ...props }) => <h1 className="text-3xl font-bold mt-6 mb-4 text-[#00FF80]" {...props} />,
+                h2: ({ ...props }) => <h2 className="text-2xl font-semibold mt-5 mb-3 text-[#00FF80]" {...props} />,
+                h3: ({ ...props }) => <h3 className="text-xl font-medium mt-4 mb-2 text-[#00FF80]" {...props} />,
+                p: ({ ...props }) => <p className="mb-4" {...props} />,
                 blockquote: ({ ...props }) => (
-                  <blockquote className="border-l-4 border-[#00cc77] pl-4 italic text-[#55dd99] my-4" {...props} />
+                  <blockquote className="border-l-4 border-[#00FF80]/60 pl-4 italic text-[#55dd99] my-4" {...props} />
                 ),
-                ul: ({ ...props }) => <ul className="list-disc pl-6 mb-4 text-[#00ff90]" {...props} />,
-                ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-4 text-[#00ff90]" {...props} />,
+                ul: ({ ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
+                ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
                 li: ({ ...props }) => <li className="mb-2" {...props} />,
                 a: ({ ...props }) => (
-                  <a className="text-[#00ff90] underline hover:text-[#fff]" {...props} />
+                  <a className="text-[#00FF80] underline hover:text-[#9affc2] transition-colors" {...props} />
                 ),
                 img: ({ src, alt, ...props }) => (
-                  <img
-                    src={src}
-                    alt={alt}
-                    className="max-w-full h-auto rounded border border-[#333] my-4"
-                    {...props}
-                  />
+                  <img src={src} alt={alt} className="max-w-full h-auto rounded border border-[#00FF80]/30 my-4" {...props} />
                 ),
                 code: ({ className, children, ...props }) => (
-                  <pre className="bg-[#000] rounded p-4 overflow-x-auto text-[#55dd99] border border-[#333] my-4">
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
+                  <pre className="bg-[#000] rounded p-4 overflow-x-auto text-[#55dd99] border border-[#00FF80]/20 my-4">
+                    <code className={className} {...props}>{children}</code>
                   </pre>
-                )
+                ),
               }}
             >
               {content}
             </ReactMarkdown>
           </article>
 
-          <div className="mt-8">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-[#00ff90] hover:text-white transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to all posts</span>
-            </Link>
+          {/* Footer */}
+          <div className="mt-8 text-xs text-[#00FF80]/70">
+              <span>type "clear" to clear screen</span>
           </div>
         </div>
-      </div>
-    </div>
+
   )
 }
