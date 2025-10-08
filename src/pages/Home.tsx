@@ -46,14 +46,14 @@ export default function Terminal() {
         newOutput.push({
           content: (
             <pre className="text-[#7fffca] whitespace-pre-wrap leading-relaxed">
-{`Available commands:
-- ls               List files and directories
-- cd <dir>         Change directory
-- cat <file>       View file content
-- echo <text>      Print text
-- pwd              Show current path
-- clear / cls      Clear screen
-- help             Show this message`}
+              {`Available commands:
+              - ls               List files and directories
+              - cd <dir>         Change directory
+              - cat <file>       View file content
+              - echo <text>      Print text
+              - pwd              Show current path
+              - clear / cls      Clear screen
+              - help             Show this message`}
             </pre>
           ),
         });
@@ -188,7 +188,8 @@ export default function Terminal() {
           {/* Input */}
           <form onSubmit={handleSubmit} className="flex mt-3 items-center">
             <span className="mr-2 text-[#00ff90] select-none font-semibold">
-              triumph@blog:{path}$
+              triumph@blog~$
+              <span className="text-green-600">/{path}:</span>
             </span>
             <input
               ref={inputRef}
