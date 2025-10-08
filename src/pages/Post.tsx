@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import frontMatter from 'front-matter'
 
