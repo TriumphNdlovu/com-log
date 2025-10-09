@@ -156,14 +156,19 @@ export default function Terminal() {
 
   return (
     <div className="min-h-screen scrollbar-hidden flex items-center justify-center bg-gradient-to-b from-[#050505] to-[#0d0d0d] font-['JetBrains_Mono',monospace] p-4 text-base text-[#00ff90]">
+      {/* retro background */}
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,#00FF80_3px,#00FF80_3px)] opacity-[0.05] pointer-events-none"></div>
+      
       {/* Header */}
       <div className="absolute top-6 text-center w-full px-4 select-none">
         <h1 className="text-4xl terminal-glow">Come Blog With Me_</h1>
         <p className="text-sm text-[#7fffca]">Type 'help' to get started</p>
        
-        <div className="mt-4">
-          <Animal />
-        </div>
+        
+        {/* The Animal should not be randers on mobile phones */}
+          <div className="mt-4 sm:block hidden">
+            <Animal />
+          </div>
       </div>
 
       {/* Terminal */}
