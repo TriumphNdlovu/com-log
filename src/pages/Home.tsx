@@ -155,7 +155,7 @@ export default function Terminal() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#050505] to-[#0d0d0d] font-['JetBrains_Mono',monospace] p-4 text-base text-[#00ff90]">
+    <div className="min-h-screen scrollbar-hidden flex items-center justify-center bg-gradient-to-b from-[#050505] to-[#0d0d0d] font-['JetBrains_Mono',monospace] p-4 text-base text-[#00ff90]">
       {/* Header */}
       <div className="absolute top-6 text-center w-full px-4 select-none">
         <h1 className="text-4xl terminal-glow">Come Blog With Me_</h1>
