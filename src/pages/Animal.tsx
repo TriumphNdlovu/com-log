@@ -87,8 +87,6 @@ export default function Animal() {
   }, []);
 
   return (
-
-
   
     <div
       ref={gopherContainerRef}
@@ -98,7 +96,7 @@ export default function Animal() {
         left: "2rem",
         width: "130px",
         height: "130px",
-        zIndex: 9999,
+        zIndex: 30,
       }}
     >
       <div style={{ position: "relative", width: "100%", height: "100%" }}>

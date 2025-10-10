@@ -4,6 +4,7 @@ import { posts } from "../lib/posts";
 import About from "../pages/About";
 import Post from "../pages/Post";
 import Animal from "./Animal";
+import TextBox from "../components/SpeechBox";
 
 interface CommandOutput {
   content: string | React.ReactNode;
@@ -162,13 +163,28 @@ export default function Terminal() {
       {/* Header */}
       <div className="absolute top-6 text-center w-full px-4 select-none">
         <h1 className="text-4xl terminal-glow">Come Blog With Me_</h1>
-        <p className="text-sm text-[#7fffca]">Type 'help' to get started</p>
-       
+        <p className="text-sm text-[#7fffca]">Type <span className="text-[#00ff48] font-extrabold">'help'</span> to get started</p>
+      <p className="text-xs text-[#7fffca]">
+        Please note that this is meant for devs, if you are not a dev it might be confusing to you.
+        <br />
+        and if you want to know why there is a gopher on the screen,
+        <br /> 
+        <span className="text-[#00ff90] hover:underline cursor-pointer font-extrabold">hover over it</span>
+      </p> 
         
-        {/* The Animal should not be randers on mobile phones */}
-          <div className="mt-4 sm:block hidden">
-            <Animal />
+          <div className="mt-4 sm:block group mx-auto flex justify-center items-center relative">
+            {/* TextBox */}
+            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 hidden group-hover:block z-50">
+              <TextBox />
+            </div>
+
+            {/* Animal */}
+            <div className="w-24 h-24">
+              <Animal />
+            </div>
           </div>
+
+
       </div>
 
       {/* Terminal */}
@@ -178,7 +194,7 @@ export default function Terminal() {
           <span className="w-3 h-3 bg-[#ff5f56] rounded-full mr-2"></span>
           <span className="w-3 h-3 bg-[#ffbd2e] rounded-full mr-2"></span>
           <span className="w-3 h-3 bg-[#27c93f] rounded-full mr-4"></span>
-          <span className="text-[#7fffca] text-sm select-none">Com-log Terminal</span>
+          <span className="text-[#7fffca] text-sm select-none text-center">Com-log Terminal</span>
         </div>
 
         {/* Body */}
