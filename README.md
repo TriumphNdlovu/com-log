@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
+# 📓 Commit Log
+[Commit_Log_upgrade.webm](https://github.com/user-attachments/assets/8a1a378f-d18a-4a66-bf46-e7e2959c158e)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Just a space for me to document things I learn.
 
-Currently, two official plugins are available:
+No grand structure, no pressure to be polished — this is where I drop notes, bugs I chased down, concepts that finally clicked, and snippets I don't want to forget. Think of it as a public scratchpad / second brain that happens to live on GitHub.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Why this exists
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+I learn a lot in the day-to-day grind of writing code — debugging something gnarly, reading docs at 11pm, or just going "oh, *that's* how that works." Most of that knowledge usually evaporates a week later. This repo is my attempt to actually keep it.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+If it's useful to anyone else stumbling across it, even better.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## What you'll find here
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- 🐛 **Bug postmortems** — weird bugs, what caused them, how I fixed them
+- 💡 **TIL (Today I Learned)** — small concepts or tricks worth remembering
+- 🛠️ **Snippets** — reusable bits of code I keep reaching for
+- 📚 **Notes** — longer write-ups on topics I'm digging into
+- 🧪 **Experiments** — half-finished ideas and proof-of-concepts
+
+## Structure
+
+```
+commit-log/
+├── bugs/           # postmortems on bugs I've debugged
+├── til/            # short "today I learned" notes
+├── snippets/        # reusable code snippets
+├── notes/          # longer-form notes on topics
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+*(Adjust this to match however you've actually organized things — happy to update it once the folders are real.)*
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How I use this
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Entries are usually short and informal. The goal isn't to write a tutorial for someone else — it's to write the note *I* would want to find later when I've forgotten how something works.
+
+## Topics I'm usually poking around in
+
+`OpenEdge ABL` · `Python` · `Software Engineering` · `Debugging` · `Personal Projects`
+
+---
+
+⭐ Mostly for me, but feel free to look around.
