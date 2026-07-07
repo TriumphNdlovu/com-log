@@ -227,7 +227,7 @@ export default function Terminal() {
       <div className="absolute bottom-4 text-center w-full px-4 select-none text-xs text-[#7fffca]">
          <div className="text-xs text-[#3cffb3] mt-1 hover:underline"
          >
-         <a href="https://triumph-portfolio-seven.vercel.app/" target="_blank" rel="noopener noreferrer">v24.9 - © 2025 Triumph Ndlovu</a>
+         <a href="https://triumph-portfolio-seven.vercel.app/" target="_blank" rel="noopener noreferrer">v24.9 - © 2026 Triumph Ndlovu</a>
         </div>
         
       </div>
