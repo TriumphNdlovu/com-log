@@ -40,7 +40,7 @@ Entries are usually short and informal. The goal isn't to write a tutorial for s
 
 ## Topics I'm usually poking around in
 
-`OpenEdge ABL` · `Python` · `Software Engineering` · `Debugging` · `Personal Projects`
+`Tech in genaral` · `Python` · `Software Engineering` · `Debugging` · `Personal Projects`
 
 ---
 
