@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import frontMatter from 'front-matter'
+import { Helmet } from 'react-helmet-async'
+import { useLocation } from 'react-router-dom'
 
 interface PostMeta {
   title: string
@@ -17,11 +19,14 @@ interface PostProps {
 // Only allow simple slug characters — no path separators or traversal.
 const isValidSlug = (slug: string) => /^[a-zA-Z0-9-_]+$/.test(slug)
 
+const SITE_URL = 'https://tiny-mooncake-80a739.netlify.app/'
+
 export default function Post({ slug }: PostProps) {
   const [meta, setMeta] = useState<PostMeta | null>(null)
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     let cancelled = false
@@ -98,7 +103,7 @@ export default function Post({ slug }: PostProps) {
         className="min-h-screen bg-[#050505] text-[#00FF80] flex items-center justify-center font-mono text-lg"
       >
         <p>
-          triumph@tlt-media:~$ <span className="animate-pulse">loading_post.sh ...</span>
+          triumph@blog:~$ <span className="animate-pulse">loading_post.sh ...</span>
         </p>
       </div>
     )
@@ -113,8 +118,27 @@ export default function Post({ slug }: PostProps) {
       </div>
     )
 
+  const canonicalUrl = `${SITE_URL}${location.pathname}`
+
   return (
     <div className="min-h-screen text-[#00FF80] font-mono flex flex-col items-center px-4 py-12 relative">
+      <Helmet>
+        <title>{meta.title} — Commit Log</title>
+        {meta.description && <meta name="description" content={meta.description} />}
+        {meta.author && <meta name="author" content={meta.author} />}
+
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={meta.title} />
+        {meta.description && <meta property="og:description" content={meta.description} />}
+        <meta property="og:url" content={canonicalUrl} />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={meta.title} />
+        {meta.description && <meta name="twitter:description" content={meta.description} />}
+      </Helmet>
+
       <article className="border border-[#00FF80]/20 bg-[#0b0b0b]/50 rounded-md p-6 leading-relaxed text-[#9affc2] shadow-[0_0_8px_#00FF80]/10">
         <h1 className="text-3xl font-bold mb-2 text-[#00FF80]">{meta.title}</h1>
         {meta.description && (
