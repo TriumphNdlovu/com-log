@@ -2,12 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/golanf.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title class="text-red-600">Commit log</title>
+    <link rel="icon" type="image/svg+xml" href="/golanf.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#050505" />
+
+    <!-- The app asks for JetBrains Mono in its font stack but nothing ever
+         loaded it, so every visitor was seeing their system default mono. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="alternate" type="application/rss+xml" title="Commit Log" href="/rss.xml" />
+    <title>Commit Log — notes from the grind</title>
+    <meta
+      name="description"
+      content="Notes from the grind — bug postmortems, TILs and longer write-ups by Triumph Ndlovu."
+    />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="font-family: ui-monospace, monospace; color: #00ff90; background: #050505; padding: 2rem">
+        This blog's terminal needs JavaScript. The
+        <a href="/archive" style="color: #00ff90">plain-text archive</a> works without it.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

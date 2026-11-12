@@ -3,6 +3,7 @@ title: "The Downfall of the Once Glorious FaaS (Serverless)"
 date: 2025-09-17
 description: "A critical look at the challenges and limitations of Function as a Service (FaaS) in modern application development."
 author: "Triumph Ndlovu"
+tags: [cloud, serverless, architecture]
 ---
 
 ## The Rise and Fall of FaaS

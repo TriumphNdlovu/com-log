@@ -3,6 +3,7 @@ title: "The Network Layers Explained"
 date: 2025-03-28
 description: "comprehensive overview of the OSI model and its layers."
 author: "Triumph Ndlovu"
+tags: [networking, fundamentals]
 ---
 
 ## 1. Physical Layer

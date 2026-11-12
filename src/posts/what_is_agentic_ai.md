@@ -3,6 +3,7 @@ title: "What is Agentic AI?"
 date: 2025-04-08
 description: "Exploring the significance of Agentic AI in enhancing autonomy, adaptability, and decision-making in artificial intelligence systems."
 author: Triumph Ndlovu
+tags: [ai, agents]
 ---
 
 # **Definition**

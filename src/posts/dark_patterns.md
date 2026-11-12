@@ -3,6 +3,7 @@ title: "Dark Patterns"
 date: 2026-07-07
 description: "A walk through the sneaky tricks compannies use to make you spend more"
 author: "Triumph Ndlovu"
+tags: [ux, ethics, design]
 ---
 
 **Dark Patterns** _(also known as Deceptive Design Patterns)_

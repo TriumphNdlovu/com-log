@@ -1,11 +1,118 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Theme tokens. The `theme` terminal command swaps data-theme on <html>,
+   so every colour in the app must come from a var, never a hardcoded hex.
+--------------------------------------------------------------------------- */
+:root {
+  --bg: #050505;
+  --bg-soft: #0b0b0b;
+  --chrome: #1e1e1e;
+  --fg: #00ff90;
+  --fg-dim: #7fffca;
+  --fg-muted: #55dd99;
+  --fg-bright: #00ff48;
+  --err: #ff7f7f;
+  --line: rgb(0 255 128 / 0.2);
+  --glow: 0 255 128;
+}
+
+html[data-theme="amber"] {
+  --bg: #0a0600; --bg-soft: #100b02; --chrome: #1f1608;
+  --fg: #ffb000; --fg-dim: #ffd899; --fg-muted: #d99a2b;
+  --fg-bright: #ffc94d; --err: #ff6b4a;
+  --line: rgb(255 176 0 / 0.2); --glow: 255 176 0;
+}
+html[data-theme="ice"] {
+  --bg: #02060a; --bg-soft: #060d14; --chrome: #0e1822;
+  --fg: #5ad9ff; --fg-dim: #b0ecff; --fg-muted: #4aa8c9;
+  --fg-bright: #8ee7ff; --err: #ff7b93;
+  --line: rgb(90 217 255 / 0.2); --glow: 90 217 255;
+}
+html[data-theme="paper"] {
+  --bg: #f6f5ef; --bg-soft: #ffffff; --chrome: #e6e4da;
+  --fg: #1c1b18; --fg-dim: #44423b; --fg-muted: #6b675c;
+  --fg-bright: #000000; --err: #b3261e;
+  --line: rgb(28 27 24 / 0.18); --glow: 28 27 24;
+}
+
+html { color-scheme: dark; }
+html[data-theme="paper"] { color-scheme: light; }
+
 body {
-  @apply bg-white text-gray-900;
-  @layer utilities {
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities that components reference. Several of these were used in the
+   markup before but never actually defined anywhere, so they silently no-op'd.
+--------------------------------------------------------------------------- */
+@layer utilities {
   .terminal-glow {
-    text-shadow: 0 0 10px #00ff90, 0 0 20px #00ff90, 0 0 30px #00ff90;
+    text-shadow: 0 0 10px rgb(var(--glow) / 0.9), 0 0 24px rgb(var(--glow) / 0.5);
+  }
+  html[data-theme="paper"] .terminal-glow { text-shadow: none; }
+
+  .scrollbar-hidden { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  .scrollbar-hidden::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scrollbar-hidden::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-hidden::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+  .animate-blink { animation: blink 1.1s step-end infinite; }
+  .speech-box::after {
+    content: ""; position: absolute; bottom: -7px; left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px; height: 12px;
+    background: var(--bg-soft);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 }
 
+@keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: 0 } }
+
+/* Respect users who asked the OS to calm things down. The scanlines, glow
+   pulse and blinking cursor are exactly the kind of thing that triggers
+   motion sensitivity and vestibular symptoms. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
+
+/* Visible keyboard focus. Previously every interactive element had
+   outline-none with no replacement, which makes the site unusable by keyboard. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link:focus {
+  position: fixed; top: 8px; left: 8px; z-index: 100; width: auto; height: auto;
+  clip: auto; padding: 8px 14px; background: var(--bg-soft); color: var(--fg);
+  border: 1px solid var(--fg);
+}
+
+/* ---------------------------------------------------------------------------
+   Syntax highlighting, themed to match the terminal instead of importing a
+   stock highlight.js stylesheet that fights the palette.
+--------------------------------------------------------------------------- */
+.hljs-comment, .hljs-quote { color: var(--fg-muted); opacity: 0.75; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section, .hljs-doctag,
+.hljs-type, .hljs-name, .hljs-strong { color: var(--fg-bright); font-weight: 600; }
+.hljs-string, .hljs-title, .hljs-attr, .hljs-symbol, .hljs-bullet,
+.hljs-addition, .hljs-template-tag { color: var(--fg-dim); }
+.hljs-number, .hljs-meta, .hljs-built_in, .hljs-variable, .hljs-regexp,
+.hljs-link, .hljs-deletion { color: var(--fg); opacity: 0.85; }
+.hljs-emphasis { font-style: italic; }

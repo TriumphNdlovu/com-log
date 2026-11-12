@@ -3,6 +3,7 @@ title: "Active Noise Cancellation: A Quiet Revolution"
 date: "2025-08-14"
 description: "Explore how Active Noise Cancellation (ANC) transforms our auditory experience by using sound wave physics to create silence."
 author: "Triumph Ndlovu"
+tags: [hardware, audio, dsp]
 ---
 
 # Active Noise Cancellation: A Quiet Revolution
