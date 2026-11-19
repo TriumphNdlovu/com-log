@@ -49,7 +49,7 @@ export default function Post({ slug, onOpenPost }: PostProps) {
   };
 
   return (
-    <article className="text-[var(--fg-dim)]">
+    <article className="mx-auto max-w-3xl text-[var(--fg-dim)]">
       <Helmet>
         <title>{post.title} — Commit Log</title>
         <meta name="description" content={post.description} />
@@ -70,8 +70,11 @@ export default function Post({ slug, onOpenPost }: PostProps) {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      <header className="mb-6 border-b border-[var(--line)] pb-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-[var(--fg)] terminal-glow">
+      <header className="mb-8 border-b border-[var(--line)] pb-6">
+        <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">
+          Field note / {post.slug}
+        </p>
+        <h1 className="text-3xl font-bold leading-tight text-[var(--fg)] sm:text-4xl md:text-5xl">
           {post.title}
         </h1>
         {post.description && (

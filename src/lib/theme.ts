@@ -1,4 +1,4 @@
-export const THEMES = ["green", "amber", "ice", "paper"] as const;
+export const THEMES = ["midnight", "amber", "cyan", "paper"] as const;
 export type Theme = (typeof THEMES)[number];
 
 const KEY = "comlog:theme";
@@ -10,16 +10,17 @@ export const applyTheme = (theme: Theme) => {
   try {
     localStorage.setItem(KEY, theme);
   } catch {
-    // Private mode / storage disabled — the theme just won't persist.
+    // Storage may be unavailable in private or locked-down browsers.
   }
 };
 
 export const loadTheme = (): Theme => {
   try {
     const saved = localStorage.getItem(KEY);
+    // Keep old personal sites upgraded gracefully.
     if (saved && isTheme(saved)) return saved;
   } catch {
-    /* ignore */
+    // Fall through to the default palette.
   }
-  return "green";
+  return "midnight";
 };
